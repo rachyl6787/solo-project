@@ -1,25 +1,24 @@
-import { element } from 'prop-types';
 import React, { Component } from 'react';
-import Playlist from './playlist.jsx';
-import logo from '../assets/spotify.jpg';
+import Login from './Login.jsx';
+import Playlist from './Playlist.jsx';
 
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
-
-
-
-
-
-
-export default function App() {
-    return (
-        <div>
-            <h1>Login with Spotify:</h1>
-            <form id='spotify' method="GET" action='/login'>
-                <input
-                  type='image'
-                  id='logo'
-                  src={logo} />
-            </form>
-        </div>
-    );
+    render() {
+        if (document.cookie.indexOf('verified=true') === -1) {
+            return <div>
+                <Login />
+            </div>
+        } else {
+            return <div>
+                <Playlist />
+            </div>
+        }
+    }
 }
+
+export default App;
