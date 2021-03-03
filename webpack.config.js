@@ -11,7 +11,10 @@ module.exports = {
   mode: process.env.NODE_ENV,
   devServer: {
     publicPath: "/build/",
-    // hot: true,
+    proxy: {
+      '/login': 'http://localhost:3000',
+    },
+    hot: true,
   },
   module: {
     rules: [
@@ -32,6 +35,10 @@ module.exports = {
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },
