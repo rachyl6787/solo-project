@@ -10,17 +10,16 @@ export default function Playlist() {
     const [token, setToken] = useState('');
     const clientId = process.env.CLIENT_ID;
     const secret = process.env.SECRET;
-    const url = 'https://api.spotify.com/v1/users/rachyl6787/playlists';
     const redirect_uri = 'http://localhost:3000/callback';
 
     useEffect(() => {
 
         if (token) return;
         const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('code');
+        const code = urlParams.get('code');
         const payload = {
             grant_type: "authorization_code",
-            code: token,
+            code,
             redirect_uri,
         }
 
@@ -47,7 +46,6 @@ export default function Playlist() {
             })
     }, []);
 
-
     const handleSubmit = () => {
 
         const newPlaylist = {
@@ -55,10 +53,21 @@ export default function Playlist() {
             "description": "New playlist: LIVE DEMO",
             "public": true,
         }
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json', 'Authorization': `Bearer ${token}` },
-            body: JSON.stringify(newPlaylist)
+
+       fetch('https://api.spotify.com/v1/me', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(data => data.json())
+        .then(json => {
+            const userId = json['id'];
+            fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify(newPlaylist)
+            })
         })
             .catch(err => {
                 console.log(err);
@@ -75,14 +84,14 @@ export default function Playlist() {
     }
 
     return (
-        <div>
+        <div className="Playlist">
             <h2>How hard do you want to workout?</h2>
-                Indicate how fast you want to work out, and we'll create a playlist to fit your pace!
-            <form id='playlist' onSubmit={e => { e.preventDefault(); handleSubmit(); }}>
-                <input onChange={handleChange} name="playlistName" type="text" placeholder="name of your playlist" value={formData.playlistName} />
-                <input onChange={handleChange} name="bpm" type="text" placeholder="beats per minute" value={formData.bpm} />
-                <input onChange={handleChange} name="genre" type="text" placeholder="genre" value={formData.genre} />
-                <input type='submit' value="Create Playlist" />
+            <p className="Playlist_text">Indicate how fast you want to work out, and we'll create a playlist to fit your pace!</p>
+            <form className="Playlist_form" onSubmit={e => { e.preventDefault(); handleSubmit(); }}>
+                <input className="button" onChange={handleChange} name="playlistName" type="text" placeholder="name of your playlist" value={formData.playlistName} />
+                <input className="button" onChange={handleChange} name="bpm" type="text" placeholder="beats per minute" value={formData.bpm} />
+                <input className="button" onChange={handleChange} name="genre" type="text" placeholder="genre" value={formData.genre} />
+                <input className="button" type='submit' value="Create Playlist" />
             </form>
         </div>
     );

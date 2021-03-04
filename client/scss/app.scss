@@ -1,9 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+
+
 body {
     color: whitesmoke;
     background: rgb(41, 38, 38);
+    text-align: center;
+    font-family: Raleway;
 }
 
 #logo {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
+}
+.Playlist {
+    text-align: center;
+    padding: 10px;
+}
+.button {
+    padding: 5px;
+    margin: 5px;
+}
+.Playlist_form {
+    padding: 10px;
 }

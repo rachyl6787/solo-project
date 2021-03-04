@@ -4,7 +4,7 @@ import logo from '../assets/spotify.jpg';
 export default function Login(props) {
     return (
         <div>
-            <h1>Login with Spotify:</h1>
+            <h2>Login with Spotify:</h2>
             <form id='spotify' method="GET" action='/login' onSubmit={props.handleLogin}>
                 <input
                   type='image'
