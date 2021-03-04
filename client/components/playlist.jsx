@@ -8,6 +8,7 @@ export default function Playlist() {
     });
 
     const [token, setToken] = useState('');
+    const [success, setSuccess] = useState('');
     const clientId = process.env.CLIENT_ID;
     const secret = process.env.SECRET;
     const redirect_uri = 'http://localhost:3000/callback';
@@ -69,6 +70,7 @@ export default function Playlist() {
                 body: JSON.stringify(newPlaylist)
             })
         })
+        .then(setSuccess('Your playlist had been created!'))
             .catch(err => {
                 console.log(err);
             });
@@ -88,11 +90,12 @@ export default function Playlist() {
             <h2>How hard do you want to workout?</h2>
             <p className="Playlist_text">Indicate how fast you want to work out, and we'll create a playlist to fit your pace!</p>
             <form className="Playlist_form" onSubmit={e => { e.preventDefault(); handleSubmit(); }}>
-                <input className="button" onChange={handleChange} name="playlistName" type="text" placeholder="name of your playlist" value={formData.playlistName} />
-                <input className="button" onChange={handleChange} name="bpm" type="text" placeholder="beats per minute" value={formData.bpm} />
-                <input className="button" onChange={handleChange} name="genre" type="text" placeholder="genre" value={formData.genre} />
+                <input className="btn" onChange={handleChange} name="playlistName" type="text" placeholder="name of your playlist" value={formData.playlistName} />
+                <input className="btn" onChange={handleChange} name="bpm" type="text" placeholder="beats per minute" value={formData.bpm} />
+                <input className="btn" onChange={handleChange} name="genre" type="text" placeholder="genre" value={formData.genre} />
                 <input className="button" type='submit' value="Create Playlist" />
             </form>
+            <p className="Success">{success}</p>
         </div>
     );
 }
