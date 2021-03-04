@@ -8,10 +8,16 @@ class App extends Component {
         this.state = {};
     }
 
+    handleLogin () {
+        // fetch('/login').then(data => {this.state})
+      //collect userID
+      //collect auth token
+    };
+
     render() {
         if (document.cookie.indexOf('verified=true') === -1) {
             return <div>
-                <Login />
+                <Login handleLogin={this.handleLogin}/>
             </div>
         } else {
             return <div>
