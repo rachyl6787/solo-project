@@ -7,23 +7,5 @@ playlistController.setCookie = (req, res, next) => {
     return next();
 };
 
-// playlistController.createPlaylist = (req, res, next) => {
-//    // console.log('body: ', req.body.name);
-//     const newPlaylist = {
-//         "name": "Test Playlist",
-//         "description": "New playlist: IT WORKED",
-//         "public": true,
-//     }
-//     fetch(url, {
-//         method: 'POST',
-//         headers: { 'Content-type': 'application/json' },
-//         body: JSON.stringify(newPlaylist)
-//     })
-//     .then();
-
-//     return next();
-
-// };
-
 
 module.exports = playlistController;
