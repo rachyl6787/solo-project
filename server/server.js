@@ -3,9 +3,10 @@ const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const fetch = require('isomorphic-fetch');
+require('dotenv').config('./.env');
 
 const playlist = require('./controllers/playlistController.js');
-const id = 'client ID';
+const id = process.env.CLIENT_ID;
 const redirect_uri = 'http://localhost:3000/callback'
 
 app.use(cookieParser());
@@ -17,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    var scopes = 'playlist-modify-public'; 
+    var scopes = 'playlist-modify-public user-read-email user-read-private'; 
     res.redirect('https://accounts.spotify.com/authorize' +
       '?response_type=code' +
       '&client_id=' + id +
@@ -26,7 +27,6 @@ app.get('/login', (req, res) => {
     });
 
 app.get('/callback', playlist.setCookie, (req, res) => {
-    console.log('request', req);
     return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 

@@ -9,8 +9,8 @@ export default function Playlist() {
 
     const [token, setToken] = useState('')
 
-    const clientId = 'client ID';
-    const secret = 'secret';
+    const clientId = process.env.CLIENT_ID;
+    const secret = process.env.SECRET;
 
     useEffect(() => {
         if (token) return;
