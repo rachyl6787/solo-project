@@ -70,7 +70,7 @@ export default function Playlist() {
                 body: JSON.stringify(newPlaylist)
             })
         })
-        .then(setSuccess('Your playlist had been created!'))
+        .then(setSuccess('Your playlist has been created!'))
             .catch(err => {
                 console.log(err);
             });
